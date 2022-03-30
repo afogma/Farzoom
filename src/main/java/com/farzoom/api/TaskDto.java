@@ -13,5 +13,4 @@ public class TaskDto {
     private final String description;
     private final Instant date;
 
-
 }
