@@ -2,22 +2,15 @@ package com.farzoom.db;
 
 import com.farzoom.model.TaskDto;
 import lombok.*;
-import org.hibernate.annotations.Immutable;
 
 import java.time.Instant;
 
-@NoArgsConstructor
 @Getter
-@RequiredArgsConstructor
-@Immutable
 public final class Task {
 
     private final Long id = 1L;
-
-    private String name;
-
-    private String description;
-
+    private final String name;
+    private final String description;
     private final Instant date = Instant.now();
 
     private Task(final Long id, final String name, final String description) {
