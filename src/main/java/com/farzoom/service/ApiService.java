@@ -38,6 +38,7 @@ public class ApiService {
                 .sorted(Comparator.comparing(TaskDto::getDescription))
                 .collect(Collectors.toList());
 
+        logger.info("requesting task list");
         return taskListDTOs;
     }
 

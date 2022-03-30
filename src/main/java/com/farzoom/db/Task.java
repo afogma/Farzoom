@@ -8,12 +8,13 @@ import java.time.Instant;
 @Getter
 public final class Task {
 
-    private final Long id = 1L;
+    private final Long id;
     private final String name;
     private final String description;
     private final Instant date = Instant.now();
 
     private Task(final Long id, final String name, final String description) {
+        this.id = id + 1;
         this.name = name;
         this.description = description;
     }
