@@ -15,22 +15,13 @@ public class TaskRepo {
     private Map<Long, Task> tasks = new ConcurrentHashMap<>();
     private Long count = 0L;
 
-    public void save(TaskDto taskDto) {
+    public Task save(Task task) {
         Long id = count + 1;
-        Task task = new Task(id, taskDto.getName(), taskDto.getDescription());
+        if (task.getId() == 0) {
+            task = new Task(id, task.getName(), task.getDescription());
+        }
         tasks.put(id, task);
-    }
-
-    public void updateName(Long id, String name) {
-        Task task = tasks.get(id);
-        task.setName(name);
-        tasks.put(id, task);
-    }
-
-    public void updateDescription(Long id, String description) {
-        Task task = tasks.get(id);
-        task.setDescription(description);
-        tasks.put(id, task);
+        return task;
     }
 
     public void delete(Long id) {

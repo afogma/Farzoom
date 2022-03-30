@@ -51,5 +51,12 @@ public class ApiService {
         logger.info("task with id {} was removed", id);
     }
 
+    public Task updateTasksName(Long id, String name) {
+        Task task = taskRepo.findById(id);
+        task.setName(name);
+        taskRepo.save(task);
+        return task;
+    }
+
 
 }
