@@ -16,16 +16,7 @@ public class RestApiExceptionHandler extends ResponseEntityExceptionHandler {
             return new ResponseEntity<>("Task for given id was not found", new HttpHeaders(), HttpStatus.NOT_FOUND);
         if (ex instanceof SectionAlreadyExistsException)
             return new ResponseEntity<>("Section already exists", new HttpHeaders(), HttpStatus.BAD_REQUEST);
-        if (ex instanceof ClassAlreadyExistsException)
-            return new ResponseEntity<>("Class already exist", new HttpHeaders(), HttpStatus.BAD_REQUEST);
-        if (ex instanceof ExportStillInProgressException)
-            return new ResponseEntity<>("Export still in progress", new HttpHeaders(), HttpStatus.BAD_REQUEST);
-        if (ex instanceof GeoClassNotFoundException)
-            return new ResponseEntity<>("Class not found", new HttpHeaders(), HttpStatus.NOT_FOUND);
-        if (ex instanceof WrongInputException)
-            return new ResponseEntity<>("Wrong input", new HttpHeaders(), HttpStatus.NOT_ACCEPTABLE);
-        if (ex instanceof ImportErrorException)
-            return new ResponseEntity<>("Something went wrong during import", new HttpHeaders(), HttpStatus.CONFLICT);
+
         return new ResponseEntity<>("Other error", HttpStatus.I_AM_A_TEAPOT);
     }
 }

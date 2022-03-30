@@ -25,13 +25,6 @@ public class ApiService {
     private final TaskRepo taskRepo;
 
     public List<TaskDto> findAllTasks(Page pages) {
-        List<TaskEntity> taskList = taskEntityRepo.findAll();
-
-        List<TaskDto> taskListDTOsFromDB = taskList.stream()
-                .map(task -> task.convertToDto(task))
-                .sorted(Comparator.comparing(TaskDto::getDescription))
-                .collect(Collectors.toList());
-
         List<TaskDto> taskListDTOs = taskRepo.findAllTasks(pages).stream()
                 .map(task -> task.convertToDto(task))
                 .sorted(Comparator.comparing(TaskDto::getDate))

@@ -38,7 +38,8 @@ public class TaskRepo {
     public List<Task> findAllTasks(Page pages) {
         return tasks.values().stream()
                 .sorted(Comparator.comparing(Task::getDate))
-                .skip(pages.getNumber())
+                .skip((long) pages.getNumber() * pages.getSize())
+                .limit(pages.getSize())
                 .collect(Collectors.toList());
     }
 }

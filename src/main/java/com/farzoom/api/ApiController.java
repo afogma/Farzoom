@@ -31,6 +31,16 @@ public class ApiController {
         return ResponseEntity.ok("task added successfully");
     }
 
+    @PutMapping
+    public ResponseEntity updateTaskName(@RequestParam Long id, @RequestParam String name) {
+            apiService.updateTasksName(id, name);
+        return ResponseEntity.ok("name for task with id: " + id + " was updated");
+    }
 
+    @PutMapping
+    public ResponseEntity updateTaskDescription(@RequestParam Long id, @RequestParam String description) {
+        apiService.updateTasksDescription(id, description);
+        return ResponseEntity.ok("name for task with id: " + id + " was updated");
+    }
 
 }
