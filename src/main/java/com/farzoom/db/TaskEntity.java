@@ -1,6 +1,6 @@
 package com.farzoom.db;
 
-import com.farzoom.model.TaskDto;
+import com.farzoom.api.TaskDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

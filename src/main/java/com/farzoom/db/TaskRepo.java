@@ -1,7 +1,7 @@
 package com.farzoom.db;
 
 import com.farzoom.model.Task;
-import com.farzoom.model.TaskDto;
+import com.farzoom.api.TaskDto;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;

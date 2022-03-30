@@ -3,7 +3,7 @@ package com.farzoom.service;
 import com.farzoom.db.TaskEntity;
 import com.farzoom.db.TaskEntityRepo;
 import com.farzoom.db.TaskRepo;
-import com.farzoom.model.TaskDto;
+import com.farzoom.api.TaskDto;
 import com.farzoom.model.Task;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;

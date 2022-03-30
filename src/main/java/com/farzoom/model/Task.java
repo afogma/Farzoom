@@ -1,5 +1,6 @@
 package com.farzoom.model;
 
+import com.farzoom.api.TaskDto;
 import lombok.*;
 
 import java.time.Instant;

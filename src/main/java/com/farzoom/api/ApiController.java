@@ -1,6 +1,5 @@
 package com.farzoom.api;
 
-import com.farzoom.model.TaskDto;
 import com.farzoom.service.ApiService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

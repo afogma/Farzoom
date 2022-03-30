@@ -1,4 +1,4 @@
-package com.farzoom.model;
+package com.farzoom.api;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
