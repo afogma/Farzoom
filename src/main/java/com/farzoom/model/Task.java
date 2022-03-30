@@ -1,6 +1,5 @@
-package com.farzoom.db;
+package com.farzoom.model;
 
-import com.farzoom.model.TaskDto;
 import lombok.*;
 
 import java.time.Instant;
@@ -13,8 +12,8 @@ public final class Task {
     private final String description;
     private final Instant date = Instant.now();
 
-    private Task(final Long id, final String name, final String description) {
-        this.id = id + 1;
+    public Task(Long id, String name, String description) {
+        this.id = id;
         this.name = name;
         this.description = description;
     }
@@ -32,6 +31,7 @@ public final class Task {
     }
 
     public Task convertFromDto(TaskDto taskDto) {
-        return new Task(this.getId(), taskDto.getName(), taskDto.getDescription());
+        return new Task(1L, taskDto.getName(), taskDto.getDescription());
     }
+
 }
