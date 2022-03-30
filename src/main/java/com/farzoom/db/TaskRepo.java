@@ -2,12 +2,15 @@ package com.farzoom.db;
 
 import com.farzoom.model.Task;
 import com.farzoom.api.TaskDto;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 @Repository
 public class TaskRepo {
@@ -32,7 +35,10 @@ public class TaskRepo {
         return tasks.get(id);
     }
 
-    public List<Task> findAllTasks() {
-        return new ArrayList<>(tasks.values());
+    public List<Task> findAllTasks(Page pages) {
+        return tasks.values().stream()
+                .sorted(Comparator.comparing(Task::getDate))
+                .skip(pages.getNumber())
+                .collect(Collectors.toList());
     }
 }

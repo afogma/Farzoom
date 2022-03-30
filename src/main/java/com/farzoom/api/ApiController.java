@@ -2,6 +2,8 @@ package com.farzoom.api;
 
 import com.farzoom.service.ApiService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,8 +17,8 @@ public class ApiController {
     private final ApiService apiService;
 
     @GetMapping("/tasks")
-    public List<TaskDto> showAllTasks() {
-        return apiService.findAllTasks();
+    public List<TaskDto> showAllTasks(@RequestParam Page pages) {
+        return apiService.findAllTasks(pages);
     }
 
     @GetMapping("/task")
@@ -25,6 +27,10 @@ public class ApiController {
     }
 
     @PostMapping("/task/add")
-    public
+    public ResponseEntity addNewTask(@RequestBody TaskDto taskDto) {
+        return ResponseEntity.ok("task added successfully");
+    }
+
+
 
 }

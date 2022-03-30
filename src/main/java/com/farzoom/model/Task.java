@@ -19,6 +19,10 @@ public final class Task {
         this.description = description;
     }
 
+    public Task setId(Long id) {
+        return new Task(id, this.name, this.description);
+    }
+
     public Task setName(String name) {
         return new Task(this.id, name, this.description);
     }
@@ -30,9 +34,4 @@ public final class Task {
     public TaskDto convertToDto(Task task) {
         return new TaskDto(task.getName(), task.getDescription(), task.getDate());
     }
-
-    public Task convertFromDto(TaskDto taskDto) {
-        return new Task(1L, taskDto.getName(), taskDto.getDescription());
-    }
-
 }
