@@ -14,9 +14,6 @@ import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-//import static org.springframework.test.web.client.match.MockRestRequestMatchers.jsonPath;
-//import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 @ActiveProfiles(profiles = "test")
 @SpringBootTest
 @AutoConfigureMockMvc
