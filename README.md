@@ -36,6 +36,11 @@ response example :
 
 Response : `200 OK`
 
+For pagination you can use query parameters "page" and "size" either any of them or both together
+request would look like GET api/tasks?page=0&size=5
+If size is not set, 10 elements will be shown by default
+
+
 ### `GET /api/task/1`
 
 Response example :
