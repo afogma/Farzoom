@@ -16,8 +16,8 @@ import static org.mockito.Mockito.*;
 
 class ApiServiceTest {
 
-    TaskRepo taskRepo = mock(TaskRepo.class);
-    ApiService apiService = new ApiService(taskRepo);
+    private final TaskRepo taskRepo = mock(TaskRepo.class);
+    private final ApiService apiService = new ApiService(taskRepo);
 
     @Test
     void createNewTask() {
@@ -52,7 +52,6 @@ class ApiServiceTest {
     @Test
     void updateTasksName() {
         Task task = getTask();
-        TaskDto taskDto = new TaskDto(0L, "task name", "task description", Instant.parse("2022-01-20T18:00:00.00Z"));
         when(taskRepo.findById(1L)).thenReturn(task);
         Task testTask = apiService.updateTasksName(1L, "task new name");
         assertEquals("task new name", testTask.getName());
@@ -61,7 +60,6 @@ class ApiServiceTest {
     @Test
     void updateTasksDescription() {
         Task task = getTask();
-        TaskDto taskDto = new TaskDto(0L, "task name", "task new description", Instant.parse("2022-01-20T18:00:00.00Z"));
         when(taskRepo.findById(1L)).thenReturn(task);
         Task testTask = apiService.updateTasksDescription(1L, "task new description");
         assertEquals("task new description", testTask.getDescription());
@@ -89,15 +87,6 @@ class ApiServiceTest {
                 new Task(1L, "task name 1", "task description"),
                 new Task(2L, "task name2", "task description"),
                 new Task(3L, "task name3", "task description")
-        );
-        return taskList;
-    }
-
-    private List<TaskDto> getTaskDtoList() {
-        List<TaskDto> taskList = List.of(
-                new TaskDto(1L, "task name 1", "task description", Instant.parse("2022-01-20T18:00:00.00Z")),
-                new TaskDto(2L, "task name2", "task description", Instant.parse("2022-01-21T18:00:00.00Z")),
-                new TaskDto(3L, "task name3", "task description", Instant.parse("2022-01-22T18:00:00.00Z"))
         );
         return taskList;
     }

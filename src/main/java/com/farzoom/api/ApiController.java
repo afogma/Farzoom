@@ -43,14 +43,14 @@ public class ApiController {
         return apiService.findAllTasks(pageable);
     }
 
-    @PutMapping("/task/update-name")
-    public TaskDto updateTaskName(@RequestParam Long id, @RequestBody String name) {
+    @PutMapping("/task/{id}/update-name")
+    public TaskDto updateTaskName(@PathVariable Long id, @RequestBody String name) {
         Task task = apiService.updateTasksName(id, name);
         return task.convertToDto();
     }
 
-    @PutMapping("/task/update-description")
-    public TaskDto updateTaskDescription(@RequestParam Long id, @RequestBody String description) {
+    @PutMapping("/task/{id}/update-description")
+    public TaskDto updateTaskDescription(@PathVariable Long id, @RequestBody String description) {
         Task task = apiService.updateTasksDescription(id, description);
         return task.convertToDto();
     }

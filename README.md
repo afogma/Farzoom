@@ -5,7 +5,7 @@ creation/update. All data saved in Hashmap and being removed upon stopping or re
 
 Project built with jdk11 and includes lombok library.
 
-Curl command for testing: curl -u admin:admin http://server-ip:8080/api/
+Curl command for testing: curl http://server-ip:8080/api/
 
 ### `GET /api/tasks`
 
@@ -80,7 +80,7 @@ Response example :
 
 Response : `200 OK`
 
-### `PUT /api/task/update-name?id=1`
+### `PUT /api/task/1/update-name`
 
 Body example :
 
@@ -101,7 +101,7 @@ Response example :
 
 Response : `200 OK`
 
-### `PUT /api/task/update-description?id=1`
+### `PUT /api/task/1/update-description`
 
 Body example :
 
