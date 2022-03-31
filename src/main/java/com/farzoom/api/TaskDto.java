@@ -12,5 +12,5 @@ public class TaskDto {
     private Long id;
     private String name;
     private String description;
-    private final Instant date = Instant.now();
+    private Instant date;
 }

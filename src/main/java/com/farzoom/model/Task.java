@@ -32,7 +32,6 @@ public final class Task {
     }
 
     public TaskDto convertToDto() {
-        return new TaskDto(id, name, description);
+        return new TaskDto(id, name, description, date);
     }
-
 }
