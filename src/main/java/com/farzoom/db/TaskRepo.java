@@ -1,9 +1,6 @@
 package com.farzoom.db;
 
-import com.farzoom.api.TaskDto;
 import com.farzoom.model.Task;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
@@ -30,10 +27,6 @@ public class TaskRepo {
         return task;
     }
 
-    public synchronized void delete(Long id) {
-        tasks.remove(id);
-    }
-
     public synchronized Task findById(Long id) {
         return tasks.get(id);
     }
@@ -42,7 +35,12 @@ public class TaskRepo {
         return tasks.values().stream()
                 .sorted(Comparator.comparing(Task::getDate))
                 .skip(pageable.getOffset())
-                .limit(pageable.getPageSize())
+                .limit(pageable.getPageSize() == 0 ? 10 : pageable.getPageSize())
                 .collect(Collectors.toList());
     }
+
+    public synchronized void delete(Long id) {
+        tasks.remove(id);
+    }
+
 }

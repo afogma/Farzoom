@@ -3,14 +3,18 @@ package com.farzoom.api;
 import com.farzoom.model.Task;
 import com.farzoom.service.ApiService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.data.web.SortDefault;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -22,9 +26,10 @@ public class ApiController {
 
     private final ApiService apiService;
 
-    @GetMapping("/tasks")
-    public List<TaskDto> showAllTasks(@PageableDefault(page = 0, size = 10) Pageable pageable) {
-        return apiService.findAllTasks(pageable);
+    @PostMapping("/task")
+    public TaskDto addNewTask(@RequestBody TaskDto taskDto) {
+        Task task = apiService.createNewTask(taskDto);
+        return task.convertToDto();
     }
 
     @GetMapping("/task/{id}")
@@ -33,10 +38,9 @@ public class ApiController {
         return task.convertToDto();
     }
 
-    @PostMapping("/task")
-    public TaskDto addNewTask(@RequestBody TaskDto taskDto) {
-        Task task = apiService.createNewTask(taskDto);
-        return task.convertToDto();
+    @GetMapping("/tasks")
+    public List<TaskDto> showAllTasks(@PageableDefault(page = 0, size = 10) Pageable pageable) {
+        return apiService.findAllTasks(pageable);
     }
 
     @PutMapping("/task/update-name")

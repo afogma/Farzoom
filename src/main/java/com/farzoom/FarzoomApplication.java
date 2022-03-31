@@ -9,5 +9,4 @@ public class FarzoomApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(FarzoomApplication.class, args);
 	}
-
 }
