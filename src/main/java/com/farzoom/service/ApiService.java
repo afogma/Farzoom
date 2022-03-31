@@ -26,22 +26,20 @@ public class ApiService {
     private final TaskEntityRepo taskEntityRepo;
     private final TaskRepo taskRepo;
 
-    public List<TaskDto> findAllTasks(Page page) {
-//        if (page == null) page = 10;
-//        System.out.println(page.getSize());
-//        System.out.println(page.getNumber());
-//        System.out.println(page.getPageable());
+    public Page<TaskDto> findAllTasks(Pageable pageable) {
 
 
-        List<TaskDto> taskListDTOs = taskRepo.findAllTasks(page).stream()
+        List<TaskDto> taskListDTOs = taskRepo.findAllTasks().stream()
                 .map(task -> task.convertToDto(task))
                 .sorted(Comparator.comparing(TaskDto::getDate))
                 .collect(Collectors.toList());
 
-
+        final int start = (int)pageable.getOffset();
+        final int end = Math.min((start + pageable.getPageSize()), taskListDTOs.size());
+        final Page<TaskDto> page = new PageImpl<>(taskListDTOs.subList(start, end), pageable, taskListDTOs.size());
 
         logger.info("requesting tasks list");
-        return taskListDTOs;
+        return page;
     }
 
     public String findTaskById(Long id) {

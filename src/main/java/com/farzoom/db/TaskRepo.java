@@ -35,11 +35,11 @@ public class TaskRepo {
         return tasks.get(id);
     }
 
-    public List<Task> findAllTasks(Page page) {
+    public List<Task> findAllTasks() {
         return tasks.values().stream()
                 .sorted(Comparator.comparing(Task::getDate))
-                .skip((long) page.getNumber() * page.getSize())
-                .limit(page.getSize())
+//                .skip((long) page.getNumber() * page.getSize())
+//                .limit(page.getSize())
                 .collect(Collectors.toList());
     }
 }
