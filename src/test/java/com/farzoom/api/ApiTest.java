@@ -29,11 +29,14 @@ public class ApiTest {
 
         mockMvc.perform(createTask)
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(1)));
+                .andExpect(jsonPath("$.id", is(1)))
+                .andExpect(jsonPath("$.name", is("testTask")))
+                .andExpect(jsonPath("$.description", is("description")));
 
         MockHttpServletRequestBuilder getTasks = MockMvcRequestBuilders.get("/api/tasks");
         mockMvc.perform(getTasks)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)));
+
     }
 }
