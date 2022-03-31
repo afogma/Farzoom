@@ -83,11 +83,10 @@ class ApiServiceTest {
     }
 
     private List<Task> getTaskList() {
-        List<Task> taskList = List.of(
+        return List.of(
                 new Task(1L, "task name 1", "task description"),
                 new Task(2L, "task name2", "task description"),
                 new Task(3L, "task name3", "task description")
         );
-        return taskList;
     }
 }
