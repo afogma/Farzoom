@@ -31,7 +31,7 @@ public class TaskEntity {
     private Instant date;
 
     public TaskDto convertToDto(TaskEntity task) {
-        return new TaskDto(task.getName(), task.getDescription());
+        return new TaskDto(task.getId(), task.getName(), task.getDescription());
     }
 
     public TaskEntity convertFromDto(TaskDto taskDto) {

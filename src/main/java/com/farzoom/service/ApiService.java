@@ -27,18 +27,16 @@ public class ApiService {
     public List<TaskDto> findAllTasks(Pageable pageable) {
 
         List<TaskDto> taskListDTOs = taskRepo.findAllTasks(pageable).stream()
-                .map(task -> task.convertToDto(task))
+                .map(Task::convertToDto)
                 .collect(Collectors.toList());
         logger.info("requesting tasks list");
-
         return taskListDTOs;
     }
 
-    public TaskDto findTaskById(Long id) {
+    public Task findTaskById(Long id) {
         Task task = taskRepo.findById(id);
-        TaskDto taskDto = task.convertToDto(task);
         logger.info("requesting description for task id: {}", id);
-        return taskDto;
+        return task;
     }
 
     public void deleteTask(Long id) {
@@ -46,27 +44,25 @@ public class ApiService {
         logger.info("task with id {} removed", id);
     }
 
-    public TaskDto updateTasksName(Long id, String name) {
+    public Task updateTasksName(Long id, String name) {
         Task task = taskRepo.findById(id);
         task = task.setName(name);
         taskRepo.save(task);
-        TaskDto taskDto = task.convertToDto(task);
         logger.info("name for task id {} updated", id);
-        return taskDto;
+        return task;
     }
 
-    public TaskDto updateTasksDescription(Long id, String description) {
+    public Task updateTasksDescription(Long id, String description) {
         Task task = taskRepo.findById(id);
         task = task.setDescription(description);
         taskRepo.save(task);
-        TaskDto taskDto = task.convertToDto(task);
         logger.info("name for task id {} updated", id);
-        return taskDto;
+        return task;
     }
 
     public Task createNewTask(TaskDto taskDto) {
-        Task task = new Task(0L, taskDto.getName(), taskDto.getDescription());
-        taskRepo.save(task);
+        Task newTask = new Task(0L, taskDto.getName(), taskDto.getDescription());
+        Task task = taskRepo.save(newTask);
         logger.info("creating new task with id {} ", task.getId());
         return task;
     }

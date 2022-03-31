@@ -31,7 +31,8 @@ public final class Task {
         return new Task(this.id, this.name, description);
     }
 
-    public TaskDto convertToDto(Task task) {
-        return new TaskDto(task.getName(), task.getDescription());
+    public TaskDto convertToDto() {
+        return new TaskDto(id, name, description);
     }
+
 }

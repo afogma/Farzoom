@@ -1,5 +1,6 @@
 package com.farzoom.api;
 
+import com.farzoom.model.Task;
 import com.farzoom.service.ApiService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -28,26 +29,27 @@ public class ApiController {
 
     @GetMapping("/task/{id}")
     public TaskDto showTaskById(@PathVariable Long id) {
-        TaskDto taskDto = apiService.findTaskById(id);
-        return taskDto;
+        Task task = apiService.findTaskById(id);
+        return task.convertToDto();
     }
 
     @PostMapping("/task")
     public TaskDto addNewTask(@RequestBody TaskDto taskDto) {
-        apiService.createNewTask(taskDto);
+        Task task = apiService.createNewTask(taskDto);
+        taskDto = task.convertToDto();
         return taskDto;
     }
 
     @PutMapping("/task/update-name")
     public TaskDto updateTaskName(@RequestParam Long id, @RequestBody String name) {
-        TaskDto taskDto = apiService.updateTasksName(id, name);
-        return taskDto;
+        Task task = apiService.updateTasksName(id, name);
+        return task.convertToDto();
     }
 
     @PutMapping("/task/update-description")
     public TaskDto updateTaskDescription(@RequestParam Long id, @RequestBody String description) {
-        TaskDto taskDto = apiService.updateTasksDescription(id, description);
-        return taskDto;
+        Task task = apiService.updateTasksDescription(id, description);
+        return task.convertToDto();
     }
 
     @DeleteMapping("/task/{id}")

@@ -17,6 +17,6 @@ public class RestApiExceptionHandler extends ResponseEntityExceptionHandler {
 //        if (ex instanceof SectionAlreadyExistsException)
 //            return new ResponseEntity<>("Section already exists", new HttpHeaders(), HttpStatus.BAD_REQUEST);
 
-        return new ResponseEntity<>("Other error", HttpStatus.I_AM_A_TEAPOT);
+        return new ResponseEntity<>("Server error", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
