@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -20,21 +22,20 @@ public class ApiController {
     private final ApiService apiService;
 
     @GetMapping("/tasks")
-    public Page<TaskDto> showAllTasks(@PageableDefault(page = 0, size = 10)
-                                      @SortDefault(sort = "date", direction = Sort.Direction.ASC)
-                                              Pageable pageable) {
+    public List<TaskDto> showAllTasks(@PageableDefault(page = 0, size = 10) Pageable pageable) {
         return apiService.findAllTasks(pageable);
     }
 
     @GetMapping("/task/{id}")
-    public String showTaskById(@PathVariable Long id) {
-        return apiService.findTaskById(id);
+    public TaskDto showTaskById(@PathVariable Long id) {
+        TaskDto taskDto = apiService.findTaskById(id);
+        return taskDto;
     }
 
     @PostMapping("/task")
-    public ResponseEntity addNewTask(@RequestBody TaskDto taskDto) {
+    public TaskDto addNewTask(@RequestBody TaskDto taskDto) {
         apiService.createNewTask(taskDto);
-        return ResponseEntity.ok(HttpStatus.OK);
+        return taskDto;
     }
 
     @PutMapping("/task/update-name")
@@ -50,8 +51,7 @@ public class ApiController {
     }
 
     @DeleteMapping("/task/{id}")
-    public ResponseEntity deleteTask(@PathVariable Long id) {
+    public void deleteTask(@PathVariable Long id) {
         apiService.deleteTask(id);
-        return ResponseEntity.ok("description for task with id: " + id + " deleted");
     }
 }

@@ -24,25 +24,21 @@ public class ApiService {
 
     private final TaskRepo taskRepo;
 
-    public Page<TaskDto> findAllTasks(Pageable pageable) {
+    public List<TaskDto> findAllTasks(Pageable pageable) {
 
-        List<TaskDto> taskListDTOs = taskRepo.findAllTasks().stream()
+        List<TaskDto> taskListDTOs = taskRepo.findAllTasks(pageable).stream()
                 .map(task -> task.convertToDto(task))
-                .sorted(Comparator.comparing(TaskDto::getDate))
                 .collect(Collectors.toList());
-
-        final int start = (int)pageable.getOffset();
-        final int end = Math.min((start + pageable.getPageSize()), taskListDTOs.size());
-        final Page<TaskDto> page = new PageImpl<>(taskListDTOs.subList(start, end), pageable, taskListDTOs.size());
-
         logger.info("requesting tasks list");
-        return page;
+
+        return taskListDTOs;
     }
 
-    public String findTaskById(Long id) {
+    public TaskDto findTaskById(Long id) {
         Task task = taskRepo.findById(id);
+        TaskDto taskDto = task.convertToDto(task);
         logger.info("requesting description for task id: {}", id);
-        return task.getDescription();
+        return taskDto;
     }
 
     public void deleteTask(Long id) {
@@ -52,7 +48,7 @@ public class ApiService {
 
     public TaskDto updateTasksName(Long id, String name) {
         Task task = taskRepo.findById(id);
-        task.setName(name);
+        task = task.setName(name);
         taskRepo.save(task);
         TaskDto taskDto = task.convertToDto(task);
         logger.info("name for task id {} updated", id);

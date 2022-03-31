@@ -1,6 +1,10 @@
 package com.farzoom.db;
 
+import com.farzoom.api.TaskDto;
 import com.farzoom.model.Task;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.Comparator;
@@ -34,11 +38,11 @@ public class TaskRepo {
         return tasks.get(id);
     }
 
-    public synchronized List<Task> findAllTasks() {
+    public synchronized List<Task> findAllTasks(Pageable pageable) {
         return tasks.values().stream()
                 .sorted(Comparator.comparing(Task::getDate))
-//                .skip((long) page.getNumber() * page.getSize())
-//                .limit(page.getSize())
+                .skip(pageable.getOffset())
+                .limit(pageable.getPageSize())
                 .collect(Collectors.toList());
     }
 }
