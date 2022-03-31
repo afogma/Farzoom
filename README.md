@@ -1,9 +1,125 @@
 # Farzoom backend test
 
-This project implements CRUD operations to work with Tasks with fields: id, name , description and creation/update date.
-All data saved in Hashmap and being removed upon stopping or restarting application.
+This project implements CRUD operations to work with Tasks that contains fields: id, name , description and date of task
+creation/update. All data saved in Hashmap and being removed upon stopping or restarting application.
 
-Project built with jdk11. It includes lombok,  To inspect all crud methods
-follow url: http://server-ip:8080/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config#/
+Project built with jdk11 and includes lombok library.
 
 Curl command for testing: curl -u admin:admin http://server-ip:8080/api/
+
+### `GET /api/tasks`
+
+response example :
+
+```json
+[
+  {
+    "id": 1,
+    "name": "task 1",
+    "description": "description for task 1",
+    "date": "2022-03-31T09:08:41.361863900Z"
+  },
+  {
+    "id": 2,
+    "name": "task 2",
+    "description": "description for task 2",
+    "date": "2022-03-31T09:08:41.957969300Z"
+  },
+  {
+    "id": 3,
+    "name": "task 3",
+    "description": "description for task 3",
+    "date": "2022-03-31T09:08:42.390961900Z"
+  }
+]
+```
+
+Response : `200 OK`
+
+### `GET /api/task/1`
+
+Response example :
+
+```json
+  {
+    "id": 1,
+    "name": "task 1",
+    "description": "description for task 1",
+    "date": "2022-03-31T09:08:41.361863900Z"
+  }
+```
+
+Response : `200 OK`
+
+### `POST /api/task`
+
+Body example :
+
+```json
+{
+	"name": "task 1",
+	"description": "description for task 1"
+}
+```
+
+Response example :
+
+```json
+  {
+    "id": 1,
+    "name": "task 1",
+    "description": "description for task 1",
+    "date": "2022-03-31T09:08:41.361863900Z"
+  }
+```
+
+Response : `200 OK`
+
+### `PUT /api/task/update-name?id=1`
+
+Body example :
+
+```
+task 1 new name
+```
+
+Response example :
+
+```json
+  {
+    "id": 1,
+    "name": "task 1 new name",
+    "description": "description for task 1",
+    "date": "2022-03-31T10:05:43.361863900Z"
+  }
+```
+
+Response : `200 OK`
+
+### `PUT /api/task/update-description?id=1`
+
+Body example :
+
+```
+new description for task 1
+```
+
+Response example :
+
+```json
+  {
+    "id": 1,
+    "name": "task 1",
+    "description": "new description for task 1",
+    "date": "2022-03-31T10:05:43.361863900Z"
+  }
+```
+
+Response : `200 OK`
+
+### `DELETE /api/task/3`
+
+Response : `200 OK`
+
+
+In addition to whats being done, H2 database (or any other) can be implemented. 
