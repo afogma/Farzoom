@@ -36,8 +36,7 @@ public class ApiController {
     @PostMapping("/task")
     public TaskDto addNewTask(@RequestBody TaskDto taskDto) {
         Task task = apiService.createNewTask(taskDto);
-        taskDto = task.convertToDto();
-        return taskDto;
+        return task.convertToDto();
     }
 
     @PutMapping("/task/update-name")
