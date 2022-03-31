@@ -3,6 +3,8 @@ package com.farzoom.api;
 import com.farzoom.service.ApiService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,8 +19,8 @@ public class ApiController {
     private final ApiService apiService;
 
     @GetMapping("/tasks")
-    public List<TaskDto> showAllTasks(@RequestParam Page pages) {
-        return apiService.findAllTasks(pages);
+    public List<TaskDto> showAllTasks(@RequestBody Page page) {
+        return apiService.findAllTasks(page);
     }
 
     @GetMapping("/task")
@@ -28,19 +30,25 @@ public class ApiController {
 
     @PostMapping("/task/add")
     public ResponseEntity addNewTask(@RequestBody TaskDto taskDto) {
-        return ResponseEntity.ok("task added successfully");
+        apiService.createNewTask(taskDto);
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @PutMapping
-    public ResponseEntity updateTaskName(@RequestParam Long id, @RequestParam String name) {
+    @PutMapping("/task/update-name")
+    public ResponseEntity updateTaskName(@RequestParam Long id, @RequestBody String name) {
             apiService.updateTasksName(id, name);
-        return ResponseEntity.ok("name for task with id: " + id + " was updated");
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @PutMapping
-    public ResponseEntity updateTaskDescription(@RequestParam Long id, @RequestParam String description) {
+    @PutMapping("/task/update-description")
+    public ResponseEntity updateTaskDescription(@RequestParam Long id, @RequestBody String description) {
         apiService.updateTasksDescription(id, description);
-        return ResponseEntity.ok("name for task with id: " + id + " was updated");
+        return ResponseEntity.ok("description for task with id: " + id + " updated");
     }
 
+    @DeleteMapping("/task/del")
+    public ResponseEntity deleteTask(@PathVariable Long id) {
+        apiService.deleteTask(id);
+        return ResponseEntity.ok("description for task with id: " + id + " deleted");
+    }
 }

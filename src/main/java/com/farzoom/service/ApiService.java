@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -24,11 +26,19 @@ public class ApiService {
     private final TaskEntityRepo taskEntityRepo;
     private final TaskRepo taskRepo;
 
-    public List<TaskDto> findAllTasks(Page pages) {
-        List<TaskDto> taskListDTOs = taskRepo.findAllTasks(pages).stream()
+    public List<TaskDto> findAllTasks(Page page) {
+//        if (page == null) page = 10;
+//        System.out.println(page.getSize());
+//        System.out.println(page.getNumber());
+//        System.out.println(page.getPageable());
+
+
+        List<TaskDto> taskListDTOs = taskRepo.findAllTasks(page).stream()
                 .map(task -> task.convertToDto(task))
                 .sorted(Comparator.comparing(TaskDto::getDate))
                 .collect(Collectors.toList());
+
+
 
         logger.info("requesting tasks list");
         return taskListDTOs;
@@ -54,7 +64,7 @@ public class ApiService {
 
     public Task updateTasksDescription(Long id, String description) {
         Task task = taskRepo.findById(id);
-        task.setDescription(description);
+        task = task.setDescription(description);
         taskRepo.save(task);
         return task;
     }

@@ -32,6 +32,6 @@ public final class Task {
     }
 
     public TaskDto convertToDto(Task task) {
-        return new TaskDto(task.getName(), task.getDescription(), task.getDate());
+        return new TaskDto(task.getName(), task.getDescription());
     }
 }

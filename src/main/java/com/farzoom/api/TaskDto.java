@@ -9,8 +9,8 @@ import java.time.Instant;
 @AllArgsConstructor
 public class TaskDto {
 
-    private final String name;
-    private final String description;
+    private String name;
+    private String description;
     private final Instant date = Instant.now();
 
 }

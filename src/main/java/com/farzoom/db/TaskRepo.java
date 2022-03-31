@@ -1,11 +1,10 @@
 package com.farzoom.db;
 
 import com.farzoom.model.Task;
-import com.farzoom.api.TaskDto;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -15,12 +14,13 @@ import java.util.stream.Collectors;
 @Repository
 public class TaskRepo {
 
-    private Map<Long, Task> tasks = new ConcurrentHashMap<>();
+    private final Map<Long, Task> tasks = new ConcurrentHashMap<>();
     private Long count = 0L;
 
     public Task save(Task task) {
-        Long id = count + 1;
-        if (task.getId() == 0) {
+        Long id = task.getId();
+        if (id == 0) {
+            id = ++count;
             task = new Task(id, task.getName(), task.getDescription());
         }
         tasks.put(id, task);
@@ -35,11 +35,11 @@ public class TaskRepo {
         return tasks.get(id);
     }
 
-    public List<Task> findAllTasks(Page pages) {
+    public List<Task> findAllTasks(Page page) {
         return tasks.values().stream()
                 .sorted(Comparator.comparing(Task::getDate))
-                .skip((long) pages.getNumber() * pages.getSize())
-                .limit(pages.getSize())
+                .skip((long) page.getNumber() * page.getSize())
+                .limit(page.getSize())
                 .collect(Collectors.toList());
     }
 }
