@@ -26,30 +26,30 @@ public class ApiController {
         return apiService.findAllTasks(pageable);
     }
 
-    @GetMapping("/task")
-    public String showTaskById(@RequestParam Long id) {
+    @GetMapping("/task/{id}")
+    public String showTaskById(@PathVariable Long id) {
         return apiService.findTaskById(id);
     }
 
-    @PostMapping("/task/add")
+    @PostMapping("/task")
     public ResponseEntity addNewTask(@RequestBody TaskDto taskDto) {
         apiService.createNewTask(taskDto);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
     @PutMapping("/task/update-name")
-    public ResponseEntity updateTaskName(@RequestParam Long id, @RequestBody String name) {
-        apiService.updateTasksName(id, name);
-        return ResponseEntity.ok(HttpStatus.OK);
+    public TaskDto updateTaskName(@RequestParam Long id, @RequestBody String name) {
+        TaskDto taskDto = apiService.updateTasksName(id, name);
+        return taskDto;
     }
 
     @PutMapping("/task/update-description")
-    public ResponseEntity updateTaskDescription(@RequestParam Long id, @RequestBody String description) {
-        apiService.updateTasksDescription(id, description);
-        return ResponseEntity.ok("description for task with id: " + id + " updated");
+    public TaskDto updateTaskDescription(@RequestParam Long id, @RequestBody String description) {
+        TaskDto taskDto = apiService.updateTasksDescription(id, description);
+        return taskDto;
     }
 
-    @DeleteMapping("/task/del")
+    @DeleteMapping("/task/{id}")
     public ResponseEntity deleteTask(@PathVariable Long id) {
         apiService.deleteTask(id);
         return ResponseEntity.ok("description for task with id: " + id + " deleted");

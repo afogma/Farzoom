@@ -22,11 +22,9 @@ public class ApiService {
 
     private static final Logger logger = LoggerFactory.getLogger(ApiService.class);
 
-    private final TaskEntityRepo taskEntityRepo;
     private final TaskRepo taskRepo;
 
     public Page<TaskDto> findAllTasks(Pageable pageable) {
-
 
         List<TaskDto> taskListDTOs = taskRepo.findAllTasks().stream()
                 .map(task -> task.convertToDto(task))
@@ -49,26 +47,31 @@ public class ApiService {
 
     public void deleteTask(Long id) {
         taskRepo.delete(id);
-        logger.info("task with id {} was removed", id);
+        logger.info("task with id {} removed", id);
     }
 
-    public Task updateTasksName(Long id, String name) {
+    public TaskDto updateTasksName(Long id, String name) {
         Task task = taskRepo.findById(id);
         task.setName(name);
         taskRepo.save(task);
-        return task;
+        TaskDto taskDto = task.convertToDto(task);
+        logger.info("name for task id {} updated", id);
+        return taskDto;
     }
 
-    public Task updateTasksDescription(Long id, String description) {
+    public TaskDto updateTasksDescription(Long id, String description) {
         Task task = taskRepo.findById(id);
         task = task.setDescription(description);
         taskRepo.save(task);
-        return task;
+        TaskDto taskDto = task.convertToDto(task);
+        logger.info("name for task id {} updated", id);
+        return taskDto;
     }
 
     public Task createNewTask(TaskDto taskDto) {
         Task task = new Task(0L, taskDto.getName(), taskDto.getDescription());
         taskRepo.save(task);
+        logger.info("creating new task with id {} ", task.getId());
         return task;
     }
 }
