@@ -11,8 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -23,8 +21,8 @@ public class ApiController {
 
     @GetMapping("/tasks")
     public Page<TaskDto> showAllTasks(@PageableDefault(page = 0, size = 10)
-                                          @SortDefault(sort = "description", direction = Sort.Direction.ASC)
-                                                  Pageable pageable) {
+                                      @SortDefault(sort = "date", direction = Sort.Direction.ASC)
+                                              Pageable pageable) {
         return apiService.findAllTasks(pageable);
     }
 
@@ -41,7 +39,7 @@ public class ApiController {
 
     @PutMapping("/task/update-name")
     public ResponseEntity updateTaskName(@RequestParam Long id, @RequestBody String name) {
-            apiService.updateTasksName(id, name);
+        apiService.updateTasksName(id, name);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 

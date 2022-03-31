@@ -1,6 +1,5 @@
 package com.farzoom.service;
 
-import com.farzoom.db.TaskEntity;
 import com.farzoom.db.TaskEntityRepo;
 import com.farzoom.db.TaskRepo;
 import com.farzoom.api.TaskDto;
